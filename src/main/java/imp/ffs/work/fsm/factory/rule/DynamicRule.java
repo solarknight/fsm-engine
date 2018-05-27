@@ -71,7 +71,7 @@ public class DynamicRule implements TransitionRule {
 
   @Override
   public Optional<FSMAction> action() {
-    return Optional.empty();
+    return Optional.ofNullable(action);
   }
 
   @Override

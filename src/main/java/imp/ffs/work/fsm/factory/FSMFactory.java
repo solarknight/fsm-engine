@@ -2,8 +2,6 @@ package imp.ffs.work.fsm.factory;
 
 import java.util.Optional;
 
-import imp.ffs.work.fsm.core.FSMixin;
-
 /**
  * @author peiheng.zph created on 18/5/7 下午5:27
  * @version 1.0
@@ -11,23 +9,25 @@ import imp.ffs.work.fsm.core.FSMixin;
 public class FSMFactory {
 
   public static <T extends FSMixin> T create(Class<T> clazz) {
-    Optional<FSMModel> optional = FSMRegistry.getModel(clazz);
-    if (!optional.isPresent()) {
-      throw new IllegalStateException("Instance class not registered!");
-    }
-
-    FSMModel model = optional.get();
     final T t;
-
     try {
       t = clazz.newInstance();
-//      model.get
+      setInitialState(t, clazz);
 
-
-    } catch (InstantiationException | IllegalAccessException e) {
+    } catch (Throwable e) {
       throw new RuntimeException(e);
     }
     return t;
+  }
+
+  private static <T extends FSMixin> void setInitialState(T t, Class<T> clazz) throws Throwable {
+    Optional<FSMModel> optional = FSMRegistry.getModel(clazz);
+    if (!optional.isPresent()) {
+      throw new IllegalStateException("Class " + clazz.getSimpleName() + " not registered as a FSM");
+    }
+
+    FSMModel model = optional.get();
+    model.getStateSetter().invoke(t, model.getInitialState());
   }
 
 

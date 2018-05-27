@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import imp.ffs.work.fsm.core.FSMState;
-import imp.ffs.work.fsm.core.FSMixin;
 import imp.ffs.work.fsm.core.TransitionRule;
 import imp.ffs.work.fsm.core.listener.EventListener;
 import imp.ffs.work.fsm.core.listener.StateListener;
