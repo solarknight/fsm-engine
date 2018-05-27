@@ -1,11 +1,17 @@
 package imp.ffs.work.fsm.factory;
 
 import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import imp.ffs.work.fsm.annotation.StateField;
+import imp.ffs.work.fsm.annotation.StateGetter;
+import imp.ffs.work.fsm.annotation.StateSetter;
 import imp.ffs.work.fsm.core.FSMState;
-import imp.ffs.work.fsm.core.FSMixin;
 import imp.ffs.work.fsm.core.TransitionRule;
 import imp.ffs.work.fsm.core.listener.EventListener;
 import imp.ffs.work.fsm.core.listener.StateListener;
@@ -16,6 +22,8 @@ import imp.ffs.work.fsm.util.Pair;
  * @version 1.0
  */
 public class FSMModel {
+
+  private static final MethodHandles.Lookup lookup = MethodHandles.lookup();
 
   private Class<? extends FSMixin> clazz;
   private FSMState initialState;
@@ -28,30 +36,65 @@ public class FSMModel {
 
   public static FSMModel from(FSMBuilder fsmBuilder) {
     FSMModel model = new FSMModel();
+    fillAttributes(model, fsmBuilder);
+    fillStateHandle(model, fsmBuilder.getBindClazz());
+    return model;
+  }
+
+  private static void fillAttributes(FSMModel model, FSMBuilder fsmBuilder) {
     model.setClazz(fsmBuilder.getBindClazz());
     model.setInitialState(fsmBuilder.getInitialState());
     model.setTransitionRules(fsmBuilder.getTransitionRules());
     model.setStateListeners(fsmBuilder.getStateListeners());
     model.setEventListeners(fsmBuilder.getEventListeners());
-
-    parseStateHandle(model, fsmBuilder.getBindClazz());
-
-    return model;
   }
 
-  private static void parseStateHandle(FSMModel model, Class<? extends FSMixin> clazz) {
+  private static void fillStateHandle(FSMModel model, Class<? extends FSMixin> clazz) {
+    Pair<MethodHandle, MethodHandle> pair;
+    try {
+      pair = parseStateHandleFromField(clazz);
+      if (pair == Pair.EMPTY) {
+        pair = parseStateHandleFromMethod(clazz);
+      }
+    } catch (Exception e) {
+      throw new IllegalStateException("Parse FSM state accessor failed");
+    }
 
+    if (pair == Pair.EMPTY) {
+      throw new IllegalStateException("Can't parse FSM state accessor");
+    }
+
+    model.setStateGetter(pair.fst);
+    model.setStateSetter(pair.snd);
   }
 
-  private static Pair<MethodHandle, MethodHandle> parseStateHandleFromField(Class<? extends FSMixin> clazz) {
-    Field[] fields = clazz.getFields();
+  private static Pair<MethodHandle, MethodHandle> parseStateHandleFromField(Class<? extends FSMixin> clazz) throws IllegalAccessException {
+    Optional<Field> optional = Arrays.stream(clazz.getDeclaredFields())
+        .filter(it -> it.getAnnotation(StateField.class) != null)
+        .findFirst();
 
-    return Pair.of(null, null);
+    if (!optional.isPresent()) {
+      return Pair.empty();
+    }
+
+    Field field = optional.get();
+    field.setAccessible(true);
+    return Pair.of(lookup.unreflectGetter(field), lookup.unreflectSetter(field));
   }
 
+  private static Pair<MethodHandle, MethodHandle> parseStateHandleFromMethod(Class<? extends FSMixin> clazz) throws IllegalAccessException {
+    Optional<Method> optionalGetter = Arrays.stream(clazz.getDeclaredMethods())
+        .filter(it -> it.getAnnotation(StateGetter.class) != null)
+        .findFirst();
+    Optional<Method> optionalSetter = Arrays.stream(clazz.getDeclaredMethods())
+        .filter(it -> it.getAnnotation(StateSetter.class) != null)
+        .findFirst();
 
-  public void initState() {
+    if (!optionalGetter.isPresent() || !optionalSetter.isPresent()) {
+      return Pair.empty();
+    }
 
+    return Pair.of(lookup.unreflect(optionalGetter.get()), lookup.unreflect(optionalSetter.get()));
   }
 
   public Class<? extends FSMixin> getClazz() {
@@ -70,6 +113,22 @@ public class FSMModel {
   public FSMModel setInitialState(FSMState initialState) {
     this.initialState = initialState;
     return this;
+  }
+
+  public MethodHandle getStateGetter() {
+    return stateGetter;
+  }
+
+  public void setStateGetter(MethodHandle stateGetter) {
+    this.stateGetter = stateGetter;
+  }
+
+  public MethodHandle getStateSetter() {
+    return stateSetter;
+  }
+
+  public void setStateSetter(MethodHandle stateSetter) {
+    this.stateSetter = stateSetter;
   }
 
   public List<TransitionRule> getTransitionRules() {

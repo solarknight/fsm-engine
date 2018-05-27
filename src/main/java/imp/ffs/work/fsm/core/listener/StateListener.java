@@ -1,16 +1,19 @@
 package imp.ffs.work.fsm.core.listener;
 
-import java.util.function.Consumer;
-
-import imp.ffs.work.fsm.core.TransitionContext;
+import imp.ffs.work.fsm.core.FSMState;
 
 /**
  * @author peiheng.zph created on 18/5/9 下午10:16
  * @version 1.0
  */
-public interface StateListener extends Consumer<TransitionContext> {
+public interface StateListener {
 
-  @Override
-  default void accept(TransitionContext transitionContext) {
+  default void onStateExited(FSMState state) {
+  }
+
+  default void onStateEntered(FSMState state) {
+  }
+
+  default void onStateChanged(FSMState from, FSMState to) {
   }
 }

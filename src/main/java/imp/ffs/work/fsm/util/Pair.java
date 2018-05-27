@@ -8,6 +8,8 @@ import java.util.Objects;
  */
 public class Pair<E, T> {
 
+  public static final Pair EMPTY = of(null, null);
+
   public final E fst;
   public final T snd;
 
@@ -19,6 +21,11 @@ public class Pair<E, T> {
   @SuppressWarnings("unchecked")
   public static <E, T> Pair<E, T> of(E fst, T snd) {
     return new Pair(fst, snd);
+  }
+
+  @SuppressWarnings("unchecked")
+  public static <E, T> Pair<E, T> empty() {
+    return (Pair<E, T>) EMPTY;
   }
 
   @Override
