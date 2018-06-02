@@ -9,6 +9,6 @@ import imp.ffs.work.fsm.element.FSMEvent;
 public interface FSMixin {
 
   default void send(FSMEvent event) {
-    FSMEventProcessor.process(this, event);
+    EventProcessors.getInstance().process(this, event);
   }
 }

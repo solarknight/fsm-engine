@@ -9,13 +9,12 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>simple-event-processor</artifactId>
+  <artifactId>sync-event-processor</artifactId>
 
   <dependencies>
     <dependency>
       <groupId>imp.ffs.work</groupId>
       <artifactId>fsm-core</artifactId>
-      <version>${fsm.version}</version>
     </dependency>
 
     <dependency>
