@@ -11,7 +11,7 @@
 
   <modules>
     <module>fsm-core</module>
-    <module>simple-event-processor</module>
+    <module>sync-event-processor</module>
   </modules>
 
   <properties>
@@ -32,6 +32,12 @@
       <dependency>
         <groupId>imp.ffs.work</groupId>
         <artifactId>fsm-core</artifactId>
+        <version>${fsm.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>imp.ffs.work</groupId>
+        <artifactId>simple-event-processor</artifactId>
         <version>${fsm.version}</version>
       </dependency>
 
@@ -60,6 +66,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
