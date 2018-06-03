@@ -9,5 +9,6 @@ import imp.ffs.work.fsm.element.FSMState;
 @FunctionalInterface
 public interface StateExitedListener extends StateListener {
 
+  @Override
   void onStateExited(FSMState state);
 }

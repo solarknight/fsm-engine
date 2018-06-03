@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import imp.ffs.work.fsm.core.rule.DynamicRule;
+import imp.ffs.work.fsm.core.rule.FixedRule;
 import imp.ffs.work.fsm.element.FSMState;
 import imp.ffs.work.fsm.element.TransitionRule;
 import imp.ffs.work.fsm.element.listener.EventListener;
 import imp.ffs.work.fsm.element.listener.StateListener;
-import imp.ffs.work.fsm.core.rule.DynamicRule;
-import imp.ffs.work.fsm.core.rule.FixedRule;
 
 /**
  * @author peiheng.zph created on 18/5/10 上午12:16
@@ -40,6 +40,14 @@ public class FSMBuilder {
     return builder;
   }
 
+  public static FixedRule fixedRule() {
+    return FixedRule.create();
+  }
+
+  public static DynamicRule dynamicRule() {
+    return DynamicRule.create();
+  }
+
   public FSMBuilder transition(TransitionRule rule) {
     Objects.requireNonNull(rule);
 
@@ -47,14 +55,6 @@ public class FSMBuilder {
       transitionRules.add(rule);
     }
     return this;
-  }
-
-  public static FixedRule fixedRule() {
-    return FixedRule.create();
-  }
-
-  public static DynamicRule dynamicRule() {
-    return DynamicRule.create();
   }
 
   public FSMBuilder addStateListener(StateListener listener) {
