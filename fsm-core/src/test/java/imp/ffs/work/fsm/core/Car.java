@@ -1,11 +1,10 @@
-package imp.ffs.work.fsm.demo;
+package imp.ffs.work.fsm.core;
 
 import imp.ffs.work.fsm.annotation.StateField;
 import imp.ffs.work.fsm.element.FSMEvent;
 import imp.ffs.work.fsm.element.FSMState;
 import imp.ffs.work.fsm.element.listener.EventIgnoredListener;
 import imp.ffs.work.fsm.element.listener.StateEnteredListener;
-import imp.ffs.work.fsm.core.FSMixin;
 
 import static imp.ffs.work.fsm.core.FSMBuilder.dynamicRule;
 import static imp.ffs.work.fsm.core.FSMBuilder.fixedRule;
@@ -17,13 +16,11 @@ import static imp.ffs.work.fsm.core.FSMBuilder.startWith;
  */
 public class Car implements FSMixin {
 
-  public enum State implements FSMState {
-    COLD, STARTED, RUNNING, FLYING
-  }
+  private static final int MAX_SPEED = 100;
 
-  public enum Event implements FSMEvent {
-    IGNITE, UPSHIFT, DOWNSHIFT
-  }
+  @StateField
+  private State state;
+  private int speed;
 
   {
     startWith(State.COLD)
@@ -35,13 +32,6 @@ public class Car implements FSMixin {
         .bind(this.getClass());
   }
 
-  private static final int MAX_SPEED = 100;
-
-  @StateField
-  private State state;
-
-  private int speed;
-
   public void start() {
     send(Event.IGNITE);
   }
@@ -51,6 +41,8 @@ public class Car implements FSMixin {
   }
 
   private void igniteInCold() {
+    sleep(500);
+
     System.out.println("Fire!");
     speed = 0;
   }
@@ -70,5 +62,21 @@ public class Car implements FSMixin {
 
   public int getSpeed() {
     return speed;
+  }
+
+  private void sleep(long ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public enum State implements FSMState {
+    COLD, STARTED, RUNNING, FLYING
+  }
+
+  public enum Event implements FSMEvent {
+    IGNITE, UPSHIFT, DOWNSHIFT
   }
 }
