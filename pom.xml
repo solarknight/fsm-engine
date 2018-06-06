@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>imp.ffs.work</groupId>
   <artifactId>fsm-engine</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <modules>
     <module>fsm-core</module>
@@ -19,7 +17,7 @@
     <java.version>1.8</java.version>
 
     <!-- First-Party Dependencies -->
-    <fsm.version>1.0.0-SNAPSHOT</fsm.version>
+    <fsm.version>1.0.0</fsm.version>
 
     <!-- Third-Party Dependencies -->
     <slf4j.version>1.7.25</slf4j.version>
@@ -30,7 +28,7 @@
   <scm>
     <url>https://github.com/solarknight/fsm-engine</url>
     <developerConnection>scm:git:ssh://git@github.com/solarknight/fsm-engine.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>fsm-engine-1.0.0</tag>
   </scm>
 
   <dependencyManagement>
