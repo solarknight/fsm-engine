@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>imp.ffs.work</groupId>
   <artifactId>fsm-engine</artifactId>
+  <packaging>pom</packaging>
   <version>0.0.1-SNAPSHOT</version>
 
+  <modules>
+    <module>fsm-core</module>
+    <module>fsm-async-processor</module>
+  </modules>
+
   <properties>
+    <!-- Project Base -->
     <java.version>1.8</java.version>
+
+    <!-- First-Party Dependencies -->
+    <fsm.version>0.0.1-SNAPSHOT</fsm.version>
+
+    <!-- Third-Party Dependencies -->
+    <slf4j.version>1.7.25</slf4j.version>
+    <logback.version>1.1.11</logback.version>
+    <junit.version>4.12</junit.version>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.25</version>
-    </dependency>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>imp.ffs.work</groupId>
+        <artifactId>fsm-core</artifactId>
+        <version>${fsm.version}</version>
+      </dependency>
 
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.1.11</version>
-      <scope>test</scope>
-    </dependency>
+      <dependency>
+        <groupId>imp.ffs.work</groupId>
+        <artifactId>simple-event-processor</artifactId>
+        <version>${fsm.version}</version>
+      </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
