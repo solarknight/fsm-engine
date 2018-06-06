@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import imp.ffs.work.fsm.element.FSMAction;
 import imp.ffs.work.fsm.element.FSMEvent;
+import imp.ffs.work.fsm.element.FSMMixin;
 import imp.ffs.work.fsm.element.FSMState;
 import imp.ffs.work.fsm.element.TransitionRule;
 
@@ -15,7 +16,7 @@ import imp.ffs.work.fsm.element.TransitionRule;
 public class FixedRule implements TransitionRule {
   private FSMState fromState;
   private FSMEvent event;
-  private FSMAction action;
+  private FSMAction<? extends FSMMixin> action;
   private FSMState toState;
 
   public static FixedRule create() {
@@ -32,7 +33,7 @@ public class FixedRule implements TransitionRule {
     return this;
   }
 
-  public FixedRule perform(FSMAction action) {
+  public <T extends FSMMixin> FixedRule perform(FSMAction<T> action) {
     this.action = action;
     return this;
   }
@@ -58,7 +59,7 @@ public class FixedRule implements TransitionRule {
   }
 
   @Override
-  public FSMState toState() {
+  public FSMState toState(FSMMixin mixin) {
     return toState;
   }
 

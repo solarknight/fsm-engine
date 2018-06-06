@@ -3,8 +3,8 @@ package imp.ffs.work.fsm.annotation;
 import org.junit.Test;
 
 import imp.ffs.work.fsm.core.FSMFactory;
-import imp.ffs.work.fsm.core.FSMixin;
 import imp.ffs.work.fsm.element.FSMEvent;
+import imp.ffs.work.fsm.element.FSMMixin;
 import imp.ffs.work.fsm.element.FSMState;
 
 import static imp.ffs.work.fsm.core.FSMBuilder.fixedRule;
@@ -35,25 +35,15 @@ public class StateAccessTest {
     assertSame(car.getState(), Car.State.STARTED);
   }
 
-  @Test
-  public void testStateTransfer2() {
-    Car car = FSMFactory.create(Car.class);
-
-    assertNotNull(car);
-    car.send(Car.Event.IGNITE);
-    car.send(Car.Event.UPSHIFT);
-    assertSame(car.getState(), Car.State.RUNNING);
-  }
-
-  public static class Car implements FSMixin {
+  public static class Car implements FSMMixin {
 
     private State state;
     private int speed;
 
     {
       startWith(State.COLD)
-          .transition(fixedRule().when(State.COLD).occur(Event.IGNITE).perform(this::igniteInCold).transfer(State.STARTED))
-          .transition(fixedRule().when(State.STARTED).occur(Event.UPSHIFT).perform(this::upshiftInStart).transfer(State.RUNNING))
+          .transition(fixedRule().when(State.COLD).occur(Event.IGNITE).perform(Car::igniteInCold).transfer(State.STARTED))
+          .transition(fixedRule().when(State.STARTED).occur(Event.UPSHIFT).perform(Car::upshiftInStart).transfer(State.RUNNING))
           .bind(this.getClass());
     }
 

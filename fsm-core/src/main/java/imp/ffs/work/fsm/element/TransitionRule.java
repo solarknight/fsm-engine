@@ -14,5 +14,5 @@ public interface TransitionRule {
 
   Optional<FSMAction> action();
 
-  FSMState toState();
+  FSMState toState(FSMMixin mixin);
 }

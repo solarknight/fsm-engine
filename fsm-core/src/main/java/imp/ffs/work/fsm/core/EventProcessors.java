@@ -7,6 +7,7 @@ import java.util.ServiceLoader;
 
 import imp.ffs.work.fsm.element.EventProcessor;
 import imp.ffs.work.fsm.element.FSMEvent;
+import imp.ffs.work.fsm.element.FSMMixin;
 
 /**
  * @author peiheng.zph created on 18-6-2 下午11:00
@@ -36,7 +37,7 @@ public class EventProcessors implements EventProcessor {
   }
 
   @Override
-  public <T extends FSMixin> void process(T t, FSMEvent event) {
+  public <T extends FSMMixin> void process(T t, FSMEvent event) {
     if (useDefault) {
       processByDefault(t, event);
     } else {
@@ -44,11 +45,11 @@ public class EventProcessors implements EventProcessor {
     }
   }
 
-  private <T extends FSMixin> void processByDefault(T t, FSMEvent event) {
+  private <T extends FSMMixin> void processByDefault(T t, FSMEvent event) {
     SimpleEventProcessor.instance.process(t, event);
   }
 
-  private <T extends FSMixin> void processByExternal(T t, FSMEvent event) {
+  private <T extends FSMMixin> void processByExternal(T t, FSMEvent event) {
     for (EventProcessor processor : loader) {
       try {
         processor.process(t, event);

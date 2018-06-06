@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import imp.ffs.work.fsm.core.rule.DynamicRule;
 import imp.ffs.work.fsm.core.rule.FixedRule;
+import imp.ffs.work.fsm.element.FSMMixin;
 import imp.ffs.work.fsm.element.FSMState;
 import imp.ffs.work.fsm.element.TransitionRule;
 import imp.ffs.work.fsm.element.listener.EventListener;
@@ -17,7 +18,7 @@ import imp.ffs.work.fsm.element.listener.StateListener;
  */
 public class FSMBuilder {
 
-  private Class<? extends FSMixin> bindClazz;
+  private Class<? extends FSMMixin> bindClazz;
   private FSMState initialState;
   private List<TransitionRule> transitionRules;
   private List<StateListener> stateListeners;
@@ -71,14 +72,14 @@ public class FSMBuilder {
     return this;
   }
 
-  public void bind(Class<? extends FSMixin> clazz) {
+  public void bind(Class<? extends FSMMixin> clazz) {
     Objects.requireNonNull(clazz);
 
     this.bindClazz = clazz;
     FSMRegistry.register(this);
   }
 
-  public Class<? extends FSMixin> getBindClazz() {
+  public Class<? extends FSMMixin> getBindClazz() {
     return bindClazz;
   }
 
