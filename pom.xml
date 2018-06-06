@@ -5,7 +5,7 @@
   <groupId>imp.ffs.work</groupId>
   <artifactId>fsm-engine</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
 
   <modules>
     <module>fsm-core</module>
@@ -17,7 +17,7 @@
     <java.version>1.8</java.version>
 
     <!-- First-Party Dependencies -->
-    <fsm.version>1.0.0</fsm.version>
+    <fsm.version>1.0.1-SNAPSHOT</fsm.version>
 
     <!-- Third-Party Dependencies -->
     <slf4j.version>1.7.25</slf4j.version>
@@ -28,7 +28,7 @@
   <scm>
     <url>https://github.com/solarknight/fsm-engine</url>
     <developerConnection>scm:git:ssh://git@github.com/solarknight/fsm-engine.git</developerConnection>
-    <tag>fsm-engine-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencyManagement>
