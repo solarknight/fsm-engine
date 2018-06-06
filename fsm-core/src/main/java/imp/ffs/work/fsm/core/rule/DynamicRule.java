@@ -11,7 +11,7 @@ import imp.ffs.work.fsm.element.FSMState;
 import imp.ffs.work.fsm.element.TransitionRule;
 
 /**
- * @author peiheng.zph created on 18/5/25 下午8:03
+ * @author solarknight created on 18/5/25 下午8:03
  * @version 1.0
  */
 public class DynamicRule implements TransitionRule {

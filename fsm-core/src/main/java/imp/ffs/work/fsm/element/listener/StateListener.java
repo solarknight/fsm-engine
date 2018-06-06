@@ -3,7 +3,7 @@ package imp.ffs.work.fsm.element.listener;
 import imp.ffs.work.fsm.element.FSMState;
 
 /**
- * @author peiheng.zph created on 18/5/9 下午10:16
+ * @author solarknight created on 18/5/9 下午10:16
  * @version 1.0
  */
 public interface StateListener {

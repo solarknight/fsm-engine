@@ -11,7 +11,7 @@ import imp.ffs.work.fsm.element.FSMEvent;
 import imp.ffs.work.fsm.element.FSMMixin;
 
 /**
- * @author peiheng.zph created on 18-6-3 上午12:11
+ * @author solarknight created on 18-6-3 上午12:11
  * @version 1.0
  */
 public class AsyncProcessor extends SimpleEventProcessor {

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 /**
- * @author peiheng.zph created on 18/5/7 下午4:48
+ * @author solarknight created on 18/5/7 下午4:48
  * @version 1.0
  */
 public class AsyncProcessorTest {

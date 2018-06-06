@@ -3,7 +3,7 @@ package imp.ffs.work.fsm.util;
 import java.util.Objects;
 
 /**
- * @author peiheng.zph created on 18/5/26 下午7:59
+ * @author solarknight created on 18/5/26 下午7:59
  * @version 1.0
  */
 public class Pair<E, T> {

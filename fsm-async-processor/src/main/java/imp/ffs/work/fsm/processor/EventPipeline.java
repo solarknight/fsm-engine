@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import imp.ffs.work.fsm.element.FSMEvent;
 
 /**
- * @author peiheng.zph created on 18-6-3 下午4:32
+ * @author solarknight created on 18-6-3 下午4:32
  * @version 1.0
  */
 public class EventPipeline {

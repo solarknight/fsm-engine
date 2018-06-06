@@ -1,7 +1,7 @@
 package imp.ffs.work.fsm.util;
 
 /**
- * @author peiheng.zph created on 18/5/10 下午8:17
+ * @author solarknight created on 18/5/10 下午8:17
  * @version 1.0
  */
 public class ReflectionUtil {

@@ -10,7 +10,7 @@ import imp.ffs.work.fsm.element.FSMEvent;
 import imp.ffs.work.fsm.element.FSMMixin;
 
 /**
- * @author peiheng.zph created on 18-6-2 下午11:00
+ * @author solarknight created on 18-6-2 下午11:00
  * @version 1.0
  */
 public class EventProcessors implements EventProcessor {

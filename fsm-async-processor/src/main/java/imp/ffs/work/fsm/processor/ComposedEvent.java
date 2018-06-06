@@ -4,7 +4,7 @@ import imp.ffs.work.fsm.element.FSMEvent;
 import imp.ffs.work.fsm.element.FSMMixin;
 
 /**
- * @author peiheng.zph created on 18-6-3 下午11:39
+ * @author solarknight created on 18-6-3 下午11:39
  * @version 1.0
  */
 public class ComposedEvent implements FSMEvent {

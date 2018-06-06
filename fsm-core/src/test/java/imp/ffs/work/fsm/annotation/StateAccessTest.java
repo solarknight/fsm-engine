@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 /**
- * @author peiheng.zph created on 18-6-3 下午4:16
+ * @author solarknight created on 18-6-3 下午4:16
  * @version 1.0
  */
 public class StateAccessTest {

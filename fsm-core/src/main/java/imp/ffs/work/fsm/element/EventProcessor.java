@@ -1,7 +1,7 @@
 package imp.ffs.work.fsm.element;
 
 /**
- * @author peiheng.zph created on 18-6-2 下午11:03
+ * @author solarknight created on 18-6-2 下午11:03
  * @version 1.0
  */
 public interface EventProcessor {

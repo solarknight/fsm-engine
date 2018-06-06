@@ -12,7 +12,7 @@ import static imp.ffs.work.fsm.core.FSMBuilder.fixedRule;
 import static imp.ffs.work.fsm.core.FSMBuilder.startWith;
 
 /**
- * @author peiheng.zph created on 18/5/7 下午4:55
+ * @author solarknight created on 18/5/7 下午4:55
  * @version 1.0
  */
 public class Car implements FSMMixin {

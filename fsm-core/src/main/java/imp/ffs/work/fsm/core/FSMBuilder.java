@@ -13,7 +13,7 @@ import imp.ffs.work.fsm.element.listener.EventListener;
 import imp.ffs.work.fsm.element.listener.StateListener;
 
 /**
- * @author peiheng.zph created on 18/5/10 上午12:16
+ * @author solarknight created on 18/5/10 上午12:16
  * @version 1.0
  */
 public class FSMBuilder {

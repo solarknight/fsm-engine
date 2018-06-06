@@ -19,7 +19,7 @@ import imp.ffs.work.fsm.element.listener.StateListener;
 import imp.ffs.work.fsm.util.Pair;
 
 /**
- * @author peiheng.zph created on 18/5/10 下午8:00
+ * @author solarknight created on 18/5/10 下午8:00
  * @version 1.0
  */
 public class FSMModel {

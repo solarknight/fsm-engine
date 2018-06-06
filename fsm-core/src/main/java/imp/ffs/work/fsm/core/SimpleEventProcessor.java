@@ -15,7 +15,7 @@ import imp.ffs.work.fsm.element.TransitionContext;
 import imp.ffs.work.fsm.element.TransitionRule;
 
 /**
- * @author peiheng.zph created on 18-6-3 下午11:48
+ * @author solarknight created on 18-6-3 下午11:48
  * @version 1.0
  */
 public class SimpleEventProcessor implements EventProcessor {
