@@ -11,6 +11,7 @@ import java.util.Optional;
 import imp.ffs.work.fsm.annotation.StateField;
 import imp.ffs.work.fsm.annotation.StateGetter;
 import imp.ffs.work.fsm.annotation.StateSetter;
+import imp.ffs.work.fsm.element.FSMMixin;
 import imp.ffs.work.fsm.element.FSMState;
 import imp.ffs.work.fsm.element.TransitionRule;
 import imp.ffs.work.fsm.element.listener.EventListener;
@@ -25,7 +26,7 @@ public class FSMModel {
 
   private static final MethodHandles.Lookup lookup = MethodHandles.lookup();
 
-  private Class<? extends FSMixin> clazz;
+  private Class<? extends FSMMixin> clazz;
   private FSMState initialState;
   private MethodHandle stateGetter;
   private MethodHandle stateSetter;
@@ -49,7 +50,7 @@ public class FSMModel {
     model.setEventListeners(fsmBuilder.getEventListeners());
   }
 
-  private static void fillStateHandle(FSMModel model, Class<? extends FSMixin> clazz) {
+  private static void fillStateHandle(FSMModel model, Class<? extends FSMMixin> clazz) {
     Pair<MethodHandle, MethodHandle> pair;
     try {
       pair = parseStateHandleFromField(clazz);
@@ -68,7 +69,7 @@ public class FSMModel {
     model.setStateSetter(pair.snd);
   }
 
-  private static Pair<MethodHandle, MethodHandle> parseStateHandleFromField(Class<? extends FSMixin> clazz) throws IllegalAccessException {
+  private static Pair<MethodHandle, MethodHandle> parseStateHandleFromField(Class<? extends FSMMixin> clazz) throws IllegalAccessException {
     Optional<Field> optional = Arrays.stream(clazz.getDeclaredFields())
         .filter(it -> it.getAnnotation(StateField.class) != null)
         .findFirst();
@@ -82,7 +83,7 @@ public class FSMModel {
     return Pair.of(lookup.unreflectGetter(field), lookup.unreflectSetter(field));
   }
 
-  private static Pair<MethodHandle, MethodHandle> parseStateHandleFromMethod(Class<? extends FSMixin> clazz) throws IllegalAccessException {
+  private static Pair<MethodHandle, MethodHandle> parseStateHandleFromMethod(Class<? extends FSMMixin> clazz) throws IllegalAccessException {
     Optional<Method> optionalGetter = Arrays.stream(clazz.getDeclaredMethods())
         .filter(it -> it.getAnnotation(StateGetter.class) != null)
         .findFirst();
@@ -97,11 +98,11 @@ public class FSMModel {
     return Pair.of(lookup.unreflect(optionalGetter.get()), lookup.unreflect(optionalSetter.get()));
   }
 
-  public Class<? extends FSMixin> getClazz() {
+  public Class<? extends FSMMixin> getClazz() {
     return clazz;
   }
 
-  public FSMModel setClazz(Class<? extends FSMixin> clazz) {
+  public FSMModel setClazz(Class<? extends FSMMixin> clazz) {
     this.clazz = clazz;
     return this;
   }

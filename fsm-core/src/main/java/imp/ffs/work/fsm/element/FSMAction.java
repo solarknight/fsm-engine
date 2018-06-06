@@ -5,11 +5,11 @@ package imp.ffs.work.fsm.element;
  * @version 1.0
  */
 @FunctionalInterface
-public interface FSMAction {
+public interface FSMAction<T extends FSMMixin> {
 
-  void perform();
+  void perform(T t);
 
-  default <S extends FSMState, E extends FSMEvent> void perform(TransitionContext<S, E> context) {
-    perform();
+  default void perform(TransitionContext<T> context) {
+    perform(context.target());
   }
 }

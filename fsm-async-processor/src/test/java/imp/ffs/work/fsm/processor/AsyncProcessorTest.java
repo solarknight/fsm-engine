@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import imp.ffs.work.fsm.annotation.StateField;
 import imp.ffs.work.fsm.core.FSMFactory;
-import imp.ffs.work.fsm.core.FSMixin;
 import imp.ffs.work.fsm.element.FSMEvent;
+import imp.ffs.work.fsm.element.FSMMixin;
 import imp.ffs.work.fsm.element.FSMState;
 
 import static imp.ffs.work.fsm.core.FSMBuilder.fixedRule;
@@ -57,13 +57,7 @@ public class AsyncProcessorTest {
     assertSame(car.getSpeed(), 10);
   }
 
-  /**
-   * @author peiheng.zph created on 18/5/7 下午4:55
-   * @version 1.0
-   */
-  public static class Car implements FSMixin {
-
-    private static final int MAX_SPEED = 100;
+  public static class Car implements FSMMixin {
 
     @StateField
     private volatile State state;
@@ -71,8 +65,8 @@ public class AsyncProcessorTest {
 
     {
       startWith(State.COLD)
-          .transition(fixedRule().when(State.COLD).occur(Event.IGNITE).perform(this::igniteInCold).transfer(State.STARTED))
-          .transition(fixedRule().when(State.STARTED).occur(Event.UPSHIFT).perform(this::upshiftInStart).transfer(State.RUNNING))
+          .transition(fixedRule().when(State.COLD).occur(Event.IGNITE).perform(Car::igniteInCold).transfer(State.STARTED))
+          .transition(fixedRule().when(State.STARTED).occur(Event.UPSHIFT).perform(Car::upshiftInStart).transfer(State.RUNNING))
           .bind(this.getClass());
     }
 
@@ -96,10 +90,6 @@ public class AsyncProcessorTest {
       System.out.println("Current speed is " + speed);
     }
 
-    private State stateWhenUpshift() {
-      return speed >= MAX_SPEED ? State.FLYING : State.RUNNING;
-    }
-
     private void sleep(long ms) {
       try {
         Thread.sleep(ms);
@@ -117,11 +107,11 @@ public class AsyncProcessorTest {
     }
 
     public enum State implements FSMState {
-      COLD, STARTED, RUNNING, FLYING
+      COLD, STARTED, RUNNING
     }
 
     public enum Event implements FSMEvent {
-      IGNITE, UPSHIFT, DOWNSHIFT
+      IGNITE, UPSHIFT
     }
   }
 }

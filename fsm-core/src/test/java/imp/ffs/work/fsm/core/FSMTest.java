@@ -45,6 +45,7 @@ public class FSMTest {
     IntStream.range(0, 100).boxed().forEach((it) -> car.upshift());
 
     assertSame(car.getState(), Car.State.FLYING);
+    assertSame(car.getSpeed(), Car.MAX_SPEED);
   }
 
   @Test(expected = AssertionError.class)

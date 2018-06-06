@@ -2,10 +2,11 @@ package imp.ffs.work.fsm.core.rule;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 import imp.ffs.work.fsm.element.FSMAction;
 import imp.ffs.work.fsm.element.FSMEvent;
+import imp.ffs.work.fsm.element.FSMMixin;
 import imp.ffs.work.fsm.element.FSMState;
 import imp.ffs.work.fsm.element.TransitionRule;
 
@@ -14,11 +15,10 @@ import imp.ffs.work.fsm.element.TransitionRule;
  * @version 1.0
  */
 public class DynamicRule implements TransitionRule {
-
   private FSMState fromState;
   private FSMEvent event;
-  private FSMAction action;
-  private Supplier<FSMState> toStateSupplier;
+  private FSMAction<? extends FSMMixin> action;
+  private Function<FSMMixin, FSMState> toStateFunc;
 
   public static DynamicRule create() {
     return new DynamicRule();
@@ -34,29 +34,15 @@ public class DynamicRule implements TransitionRule {
     return this;
   }
 
-  public DynamicRule perform(FSMAction action) {
+  public <T extends FSMMixin> DynamicRule perform(FSMAction<T> action) {
     this.action = action;
     return this;
   }
 
-  public DynamicRule transfer(Supplier<FSMState> supplier) {
-    this.toStateSupplier = supplier;
+  @SuppressWarnings("unchecked")
+  public <T extends FSMMixin> DynamicRule transfer(Function<T, FSMState> supplier) {
+    this.toStateFunc = (Function<FSMMixin, FSMState>) supplier;
     return this;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    DynamicRule fixedRule = (DynamicRule) o;
-    return Objects.equals(fromState, fixedRule.fromState) &&
-        Objects.equals(event, fixedRule.event) &&
-        Objects.equals(toStateSupplier, fixedRule.toStateSupplier) &&
-        Objects.equals(action, fixedRule.action);
   }
 
   @Override
@@ -75,7 +61,27 @@ public class DynamicRule implements TransitionRule {
   }
 
   @Override
-  public FSMState toState() {
-    return toStateSupplier.get();
+  public FSMState toState(FSMMixin mixin) {
+    return toStateFunc.apply(mixin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DynamicRule fixedRule = (DynamicRule) o;
+    return Objects.equals(fromState, fixedRule.fromState) &&
+        Objects.equals(event, fixedRule.event) &&
+        Objects.equals(toStateFunc, fixedRule.toStateFunc) &&
+        Objects.equals(action, fixedRule.action);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fromState, event, toStateFunc, action);
   }
 }
