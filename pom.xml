@@ -67,7 +67,7 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>imp.ffs.work</groupId>
+        <groupId>com.github.solarknight</groupId>
         <artifactId>fsm-core</artifactId>
         <version>${fsm.version}</version>
       </dependency>

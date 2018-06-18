@@ -13,7 +13,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>imp.ffs.work</groupId>
+      <groupId>com.github.solarknight</groupId>
       <artifactId>fsm-core</artifactId>
     </dependency>
 
