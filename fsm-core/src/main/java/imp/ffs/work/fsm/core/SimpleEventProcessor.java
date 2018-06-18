@@ -75,7 +75,7 @@ public class SimpleEventProcessor implements EventProcessor {
   }
 
   private <T extends FSMMixin> TransitionContext<T> buildTransitionContext(T t, FSMState fromState,
-                                                                                  FSMEvent event, TransitionRule rule) {
+                                                                           FSMEvent event, TransitionRule rule) {
     return SimpleContext.create(t, fromState, event, rule);
   }
 
