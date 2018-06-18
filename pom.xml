@@ -4,7 +4,7 @@
 
   <groupId>com.github.solarknight</groupId>
   <artifactId>fsm-engine</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>FSM-Engine</name>
@@ -16,7 +16,7 @@
     <java.version>1.8</java.version>
 
     <!-- First-Party Dependencies -->
-    <fsm.version>1.0.2</fsm.version>
+    <fsm.version>1.0.3-SNAPSHOT</fsm.version>
 
     <!-- Third-Party Dependencies -->
     <slf4j.version>1.7.25</slf4j.version>
@@ -56,7 +56,7 @@
     <url>https://github.com/solarknight/fsm-engine</url>
     <connection>scm:git:ssh://git@github.com/solarknight/fsm-engine.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/solarknight/fsm-engine.git</developerConnection>
-    <tag>fsm-engine-1.0.2</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <modules>
