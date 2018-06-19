@@ -50,6 +50,20 @@ car.send(Car.Event.IGNITE);
 assertSame(car.getState(), Car.State.STARTED);
 ```
 
+## Integrate
+
+Example with maven
+
+```xml
+    <dependency>
+      <groupId>com.github.solarknight</groupId>
+      <artifactId>fsm-core</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+```
+
+The version displayed here will be the latest.
+
 ## Usage
 
 ### Define status and events
@@ -58,15 +72,21 @@ Implement `FSMState` `FSMEvent` interface for your status and events.
 
 Use `@StateField` to mark the state field, or `@StateGetter` `@StateSetter` to mark the state Getter/Setter method. The FSM engine will update the state for you.
 
-### Define transition rules
+### Add transition rules and listeners
 
-Use `FSMBuilder` to define your fsm transition rules. The definition starts with `startWith` method, and ends with `bind`.
+Use `FSMBuilder` to build your FSM definition. The definition starts with `startWith` method, and ends with `bind`.
 
-The definition should be placed top of the class as an init block to be more readable.
+Use `FSMBuilder#transition` to add fixed or dynamic transition rules.
+
+Use `FSMBuilder#addStateListener` and `FSMBuilder#addEventListener` to add custom listeners.
+
+By convention, the definition should be placed top of the class as an init block to be more readable.
 
 ### Create instance and Use
 
 Use `FSMFactory` to create the FSM instance, and use `send` method inherited from `FSMMixin` to send events.
+
+You can also encapsulate the `send` method in your business logic.
 
 ## Advanced
 
